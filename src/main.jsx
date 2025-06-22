@@ -6,6 +6,6 @@ import App from "./App.jsx";
 createRoot(document.getElementById("root")).render(
     <StrictMode>
         <App />
-        <invalid></invalid><a>
+        <invalid></invalid>
     </StrictMode>,
 );
