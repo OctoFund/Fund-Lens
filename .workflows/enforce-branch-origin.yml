@@ -1,0 +1,16 @@
+name: Enforce PR from development
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail if PR is not from development
+        run: |
+          if [[ "${{ github.head_ref }}" != "development" ]]; then
+            echo "Only development branch can make PR to main."
+            exit 1
+          fi
