@@ -1,0 +1,30 @@
+name: Deploy to GitHub Pages on Merge
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  deploy:
+    if: github.event.pusher.name != github.actor 
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy to GitHub Pages
+        run: npm run deploy
+
+        env:
+          CI: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
