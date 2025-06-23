@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    if: github.event.pusher.name != github.actor 
+    name: Build and Deploy to GitHub Pages
     runs-on: ubuntu-latest
 
     steps:
