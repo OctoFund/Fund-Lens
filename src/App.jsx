@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { PROPERTIES } from "./common/home/properties";
+import { useEffect, useState } from "react";
+import PROPERTIES from "./common/home/properties";
+import networkModule from "./network/module";
+import HTTPRequestTypes from "./network/HTTPRequestTypes";
 
 function App() {
 	const [search, setSearch] = useState("");
@@ -9,6 +11,15 @@ function App() {
 	const [valueType, setValueType] = useState("NAV");
 	const [rollingType, setRollingType] = useState("");
 	const [duration, setDuration] = useState("1Y");
+
+	async function renderFirstData() {
+		const res = await networkModule.request(HTTPRequestTypes.GET, "https://api.mfapi.in/mf");
+		console.log(res);
+	}
+
+	useEffect(() => {
+		renderFirstData();
+	}, []);
 
 	return (
 		<div className="min-h-screen bg-gray-50 py-8 px-4 flex flex-col items-center">

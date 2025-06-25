@@ -1,19 +1,19 @@
-const HTTPRequestTypes = require("./HTTPRequestTypes");
-const axiosAdapter = require("./axios/axiosAdapter");
+import HTTPRequestTypes from "./HTTPRequestTypes";
+import axiosAdapter from "./axios/axiosAdapter";
 
 class NetworkModule {
-    request = (requestType, url, headers = {}, data = null) => {
+    request = async (requestType, url, headers = {}, data = null) => {
         switch(requestType) {
             case HTTPRequestTypes.GET:
-                return axiosAdapter.get(url, headers);
+                return await axiosAdapter.get(url, headers);
             case HTTPRequestTypes.POST:
-                return axiosAdapter.post(url, data, headers);
+                return await axiosAdapter.post(url, data, headers);
             case HTTPRequestTypes.DELETE:
-                return axiosAdapter.delete(url, headers);
+                return await axiosAdapter.delete(url, headers);
             case HTTPRequestTypes.PATCH:
-                return axiosAdapter.patch(url, data, headers);
+                return await axiosAdapter.patch(url, data, headers);
             case HTTPRequestTypes.PUT:
-                return axiosAdapter.put(url, data, headers);
+                return await axiosAdapter.put(url, data, headers);
             default:
                 throw new Error('Unsupported request type');
         }
@@ -22,4 +22,4 @@ class NetworkModule {
 
 const networkModule = new NetworkModule();
 
-module.exports = networkModule;
+export default networkModule;

@@ -3,6 +3,6 @@ const PROPERTIES = {
     "subtitle": "India's Free and Open source mutual funds analysis tool."
 };
 
-module.exports = {
+export default {
     PROPERTIES
-}
+};

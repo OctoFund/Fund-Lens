@@ -1,24 +1,55 @@
-const axios = require('axios');
+import axios from "axios";
+import ResponseFormat from "../ResponseFormat";
 
 const axiosAdapter = {
-    request: (url, method, headers, data) => {
-        return axios({ url, method, headers, data });
+    get: async (url, headers) => {
+        try {
+            const response = await axios.get(url, { headers });
+            const rf = new ResponseFormat(response.status, 
+                                    response.statusText, 
+                                    response.data);
+            return rf;
+        }
+        catch (error) {
+            const status = error.response?.status || 0;
+            const statusText = error.message || "Network Error";
+
+            const rf = new ResponseFormat(
+                status,
+                statusText,
+                null // or { error: true, message: statusText }
+            );
+            return rf;
+        }
     },
-    get: (url, headers) => {
-        return axios.get(url, { headers });
+    post: async (url, data, headers) => {
+        const response = await axios.post(url, data, { headers });
+        const rf = new ResponseFormat(response.status, 
+            response.statusText, 
+            response.data);
+        return rf;
     },
-    post: (url, data, headers) => {
-        return axios.post(url, data, { headers });
+    put: async (url, data, headers) => {
+        const response = await axios.put(url, data, { headers });
+        const rf = new ResponseFormat(response.status, 
+            response.statusText, 
+            response.data);
+        return rf;
     },
-    put: (url, data, headers) => {
-        return axios.put(url, data, { headers });
+    patch: async (url, data, headers) => {
+        const response = await axios.patch(url, data, { headers });
+        const rf = new ResponseFormat(response.status, 
+            response.statusText, 
+            response.data);
+        return rf;
     },
-    patch: (url, data, headers) => {
-        return axios.patch(url, data, { headers });
-    },
-    delete: (url, headers) => {
-        return axios.delete(url, { headers });
+    delete: async (url, headers) => {
+        const response = await axios.delete(url, { headers });
+        const rf = new ResponseFormat(response.status, 
+            response.statusText, 
+            response.data);
+        return rf;
     }
 };
 
-module.exports = axiosAdapter;{}
+export default axiosAdapter;

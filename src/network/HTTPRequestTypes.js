@@ -6,4 +6,6 @@ const HTTPRequestTypes = {
     "PUT": 5
 };
 
-module.exports = HTTPRequestTypes;
+export default {
+    HTTPRequestTypes
+}
