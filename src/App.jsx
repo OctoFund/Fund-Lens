@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PROPERTIES } from "./common/home/properties";
 
 function App() {
 	const [search, setSearch] = useState("");
