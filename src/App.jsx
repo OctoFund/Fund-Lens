@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import SearchInput from "./components/SearchInput";
 import GrowthDirectCheckbox from "./components/GrowthDirectCheckbox";
@@ -8,6 +8,9 @@ import ValueTypeSelector from "./components/ValueTypeSelector";
 import RollingTypeSelector from "./components/RollingTypeSelector";
 import DurationSelector from "./components/DurationSelector";
 import ChartPlaceholder from "./components/ChartPlaceholder";
+
+import networkModule from "./network/module";
+import HTTPRequestTypes from "./network/HTTPRequestTypes";
 
 function App() {
 	const [search, setSearch] = useState("");
