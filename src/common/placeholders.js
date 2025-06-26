@@ -1,7 +1,11 @@
 const PLACEHOLDERS = {
     home : {
-        title: "Mutual Funds Analysis",
-        subtitle: "India's Free and Open source mutual funds analysis tool."
+        title: "FundLens | India's Free and Open source mutual funds analysis tool.",
+        header: {
+            title: "Mutual Funds Analysis",
+            subtitle: "India's Free and Open source mutual funds analysis tool."
+        }
+        
     }
     
 };

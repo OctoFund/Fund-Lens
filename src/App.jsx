@@ -9,10 +9,12 @@ import RollingTypeSelector from "./components/RollingTypeSelector";
 import DurationSelector from "./components/DurationSelector";
 import ChartPlaceholder from "./components/ChartPlaceholder";
 
+import PLACEHOLDERS from "./common/placeholders";
 import networkModule from "./network/module";
 import HTTPRequestTypes from "./network/HTTPRequestTypes";
 
 function App() {
+	document.title = PLACEHOLDERS.home.title;
 	const [search, setSearch] = useState("");
 	const [showGrowthDirect, setShowGrowthDirect] = useState(true);
 	const [selectedFunds, setSelectedFunds] = useState([]);
