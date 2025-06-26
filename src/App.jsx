@@ -18,6 +18,15 @@ function App() {
 	const [rollingType, setRollingType] = useState("");
 	const [duration, setDuration] = useState("1Y");
 
+	async function renderFirstData() {
+		const res = await networkModule.request(HTTPRequestTypes.GET, "https://api.mfapi.in/mf");
+		console.log(res);
+	}
+
+	useEffect(() => {
+		renderFirstData();
+	}, []);
+
 	return (
 		<div className="min-h-screen bg-gray-50 py-8 px-4 flex flex-col items-center">
 			<div className="max-w-2xl w-full bg-white rounded-lg shadow p-6">
