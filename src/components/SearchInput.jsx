@@ -1,13 +1,23 @@
-function SearchInput({ search, setSearch }) {
+import Select from "react-select";
+
+function SearchInput({ options, search, setSearch, label, placeholder }) {
+  // const fundOptions = [
+  //   { value: "HDFC Balanced Advantage Fund", label: "HDFC Balanced Advantage Fund" },
+  //   { value: "ICICI Prudential Bluechip Fund", label: "ICICI Prudential Bluechip Fund" }
+  // ];
+  // const [selectedFunds, setSelectedFunds] = useState([]);
+
   return (
     <div className="mb-4">
-      <label className="block text-sm font-medium mb-1">Mutual Fund Index (TRI)</label>
-      <input
-        type="text"
-        className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-        placeholder="Start typing the mutual fund name"
-        value={search}
-        onChange={e => setSearch(e.target.value)}
+      <label className="block text-sm font-medium mb-1">{label}</label>
+      <Select
+        isMulti
+        options={options}
+        selectedOptions={search}
+        setSelectedOptions={setSearch}
+        placeholder={placeholder}
+        className="basic-multi-select"
+        classNamePrefix="select"
       />
     </div>
   );

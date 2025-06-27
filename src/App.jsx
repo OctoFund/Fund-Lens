@@ -11,12 +11,15 @@ import ChartPlaceholder from "./components/ChartPlaceholder";
 
 import PLACEHOLDERS from "./common/placeholders";
 import dataRepository from "./data/repository";
+import SearchMutualFunds from "./components/SearchMutualFunds";
 
 function App() {
 	document.title = PLACEHOLDERS.home.title;
-	const [search, setSearch] = useState("");
+	const [fundOptions, setFundOptions] = useState([]);
+	const [indexOptions, setIndexOptions] = useState([]);
+	const [searchMutualFunds, setSearchMutualFunds] = useState([]);
 	const [showGrowthDirect, setShowGrowthDirect] = useState(true);
-	const [selectedFunds, setSelectedFunds] = useState([]);
+	const [selectedFunds, setSelectedFunds] = useState(["Growth"]);
 	const [chartType, setChartType] = useState("");
 	const [valueType, setValueType] = useState("NAV");
 	const [rollingType, setRollingType] = useState("");
@@ -24,7 +27,16 @@ function App() {
 
 	async function renderFirstData() {
 		const fundsList = await dataRepository.getAllFundsList();
-		console.log(fundsList);
+		var funds = [];
+		fundsList.forEach(fund => {
+			funds.push({
+				value: fund, 
+				label: fund
+			});
+		});
+		setFundOptions(funds);
+		// const indexesList = await dataRepository.getAllIndexList();
+		// console.log(indexesList);
 	}
 
 	useEffect(() => {
@@ -35,7 +47,11 @@ function App() {
 		<div className="min-h-screen bg-gray-50 py-8 px-4 flex flex-col items-center">
 			<div className="max-w-2xl w-full bg-white rounded-lg shadow p-6">
 				<Header />
-				<SearchInput search={search} setSearch={setSearch} />
+				<SearchMutualFunds 
+					fundOptions={fundOptions}
+					searchMutualFunds={searchMutualFunds} 
+					setSearchMutualFunds={setSearchMutualFunds} 
+				/>
 				<GrowthDirectCheckbox showGrowthDirect={showGrowthDirect} setShowGrowthDirect={setShowGrowthDirect} />
 				<SelectedFundsDisplay selectedFunds={selectedFunds} />
 				<ChartTypeSelector chartType={chartType} setChartType={setChartType} />
