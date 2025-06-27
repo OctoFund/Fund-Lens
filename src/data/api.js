@@ -15,7 +15,13 @@ class API {
         url += homeRoute;
         return url;
     }
-    getAllFundsList = async () => {}
+    getAllFundsList = async () => {
+        throw Error("NOT Implemented");
+    }
+    getAllIndexList = async () => {
+        throw Error("NOT Implemented");
+    }
+    
 };
 
 export default API;
