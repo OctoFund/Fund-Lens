@@ -10,7 +10,7 @@ import DurationSelector from "./components/DurationSelector";
 import ChartPlaceholder from "./components/ChartPlaceholder";
 
 import PLACEHOLDERS from "./common/placeholders";
-import HTTPRequestTypes from "./network/HTTPRequestTypes";
+import dataRepository from "./data/repository";
 
 function App() {
 	document.title = PLACEHOLDERS.home.title;
@@ -23,8 +23,8 @@ function App() {
 	const [duration, setDuration] = useState("1Y");
 
 	async function renderFirstData() {
-		const res = await networkModule.request(HTTPRequestTypes.GET, "https://api.mfapi.in/mf");
-		console.log(res);
+		const fundsList = await dataRepository.getAllFundsList();
+		console.log(fundsList);
 	}
 
 	useEffect(() => {
