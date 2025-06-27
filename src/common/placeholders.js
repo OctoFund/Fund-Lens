@@ -8,6 +8,10 @@ const PLACEHOLDERS = {
         mutual_fund_search: {
             label: "Mutual Fund",
             placeholder: "Start typing the mutual fund name"
+        },
+        index_search: {
+            label: "Index (TRI)",
+            placeholder: "Start typing the index name"
         }
     }
     

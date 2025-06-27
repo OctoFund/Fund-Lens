@@ -2,9 +2,7 @@ import SearchInput from "./SearchInput";
 import PLACEHOLDERS from "../common/placeholders";
 
 
-function SearchMutualFunds({ fundOptions, searchMutualFunds, setSearchMutualFunds }) {
-  console.log(fundOptions);
-  
+function SearchMutualFunds({ fundOptions, selectedMutualFunds, setSelectedMutualFunds }) {  
   // const fundOptions = [
   //   { value: "HDFC Balanced Advantage Fund", label: "HDFC Balanced Advantage Fund" },
   //   { value: "ICICI Prudential Bluechip Fund", label: "ICICI Prudential Bluechip Fund" }
@@ -14,8 +12,8 @@ function SearchMutualFunds({ fundOptions, searchMutualFunds, setSearchMutualFund
   return (
     <SearchInput 
       options={fundOptions}
-      search={searchMutualFunds}
-      setSearch={setSearchMutualFunds}
+      selected={selectedMutualFunds}
+      setSelected={setSelectedMutualFunds}
       label = {PLACEHOLDERS.home.mutual_fund_search.label}
       placeholder = {PLACEHOLDERS.home.mutual_fund_search.placeholder}
     />
