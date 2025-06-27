@@ -10,7 +10,6 @@ import DurationSelector from "./components/DurationSelector";
 import ChartPlaceholder from "./components/ChartPlaceholder";
 
 import PLACEHOLDERS from "./common/placeholders";
-import networkModule from "./network/module";
 import HTTPRequestTypes from "./network/HTTPRequestTypes";
 
 function App() {
