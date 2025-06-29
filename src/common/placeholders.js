@@ -12,6 +12,9 @@ const PLACEHOLDERS = {
         index_search: {
             label: "Index (TRI)",
             placeholder: "Start typing the index name"
+        },
+        show_growth_fund_checkbox: {
+            label: "Show Growth Direct funds only (ignoring other like dividends and regular plans)"
         }
     }
     

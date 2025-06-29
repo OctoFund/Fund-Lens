@@ -20,11 +20,23 @@ function App() {
 	const [indexOptions, setIndexOptions] = useState([]);
 	const [selectedMutualFunds, setSelectedMutualFunds] = useState([]);
 	const [selectedIndexes, setSelectedIndexes] = useState([]);
-	const [showGrowthDirect, setShowGrowthDirect] = useState(true);
+	const [showGrowthDirect, setShowGrowthDirect] = useState(false);
 	const [chartType, setChartType] = useState("");
 	const [valueType, setValueType] = useState("NAV");
 	const [rollingType, setRollingType] = useState("");
 	const [duration, setDuration] = useState("1Y");
+
+	async function showGrowthDirectFunds() {
+		const fundsList = await dataRepository.getAllDirectFundsList();
+		var funds = [];
+		fundsList.forEach(fund => {
+			funds.push({
+				value: fund.code, 
+				label: fund.name
+			});
+		});
+		setFundOptions(funds);
+	}
 
 	async function renderFirstData() {
 		const fundsList = await dataRepository.getAllDirectOrRegularFundsList();
@@ -52,6 +64,15 @@ function App() {
 		renderFirstData();
 	}, []);
 
+	useEffect(() => {
+		if(showGrowthDirect) {
+			showGrowthDirectFunds();
+		}
+		else {
+			renderFirstData();
+		}
+	}, [showGrowthDirect]);
+
 	return (
 		<div className="min-h-screen bg-gray-50 py-8 px-4 flex flex-col items-center">
 			<div className="max-w-2xl w-full bg-white rounded-lg shadow p-6">
@@ -66,14 +87,16 @@ function App() {
 					selectedIndexes={selectedIndexes}
 					setSelectedIndexes={setSelectedIndexes}
 				/>
-				<GrowthDirectCheckbox showGrowthDirect={showGrowthDirect} setShowGrowthDirect={setShowGrowthDirect} />
-				{/* <SelectedFundsDisplay selectedFunds={selectedFunds} /> */}
+				<GrowthDirectCheckbox 
+					showGrowthDirect={showGrowthDirect} 
+					setShowGrowthDirect={setShowGrowthDirect} 
+				/>
 				<ChartTypeSelector chartType={chartType} setChartType={setChartType} />
 				<ValueTypeSelector valueType={valueType} setValueType={setValueType} />
 				<RollingTypeSelector rollingType={rollingType} setRollingType={setRollingType} />
 				<DurationSelector duration={duration} setDuration={setDuration} />
 				<button onClick={() => {
-					console.log(selectedMutualFunds);
+					console.log(selectedIndexes);
 				}}>
 					{"click"}
 				</button>
