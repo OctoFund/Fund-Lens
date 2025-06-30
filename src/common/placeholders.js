@@ -1,6 +1,9 @@
 const PLACEHOLDERS = {
     home : {
         title: "FundLens | India's Free and Open source mutual funds analysis tool.",
+        loader: {
+            message: "Loading..."
+        },
         header: {
             title: "Mutual Funds Analysis",
             subtitle: "India's Free and Open source mutual funds analysis tool."
