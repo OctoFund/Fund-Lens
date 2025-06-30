@@ -96,14 +96,6 @@ function App() {
 					chartType={chartType}
 					setChartType={setChartType}
 				/>
-				<ValueTypeSelector
-					valueType={valueType}
-					setValueType={setValueType}
-				/>
-				<RollingTypeSelector
-					rollingType={rollingType}
-					setRollingType={setRollingType}
-				/>
 				<DurationSelector
 					duration={duration}
 					setDuration={setDuration}
