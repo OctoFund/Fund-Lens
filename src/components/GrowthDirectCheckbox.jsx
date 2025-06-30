@@ -1,3 +1,5 @@
+import PLACEHOLDERS from "../common/placeholders";
+
 function GrowthDirectCheckbox({ showGrowthDirect, setShowGrowthDirect }) {
   return (
     <div className="flex items-center mb-4">
@@ -9,7 +11,7 @@ function GrowthDirectCheckbox({ showGrowthDirect, setShowGrowthDirect }) {
         className="mr-2"
       />
       <label htmlFor="growth-direct" className="text-sm">
-        Show Growth Direct funds only (ignoring other like dividends and regular plans)
+        {PLACEHOLDERS.home.show_growth_fund_checkbox.label}
       </label>
     </div>
   );
