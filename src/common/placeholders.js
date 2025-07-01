@@ -24,11 +24,20 @@ const PLACEHOLDERS = {
             placeholder: "Choose analysis type",
             info_label: "Click here to understand these charts",
             options: {
+                nav_or_index: "NAV or Index Value",
                 sip_xirr: "SIP Rolling Returns (XIRR %)",
                 sip_abs: "SIP Rolling Absolute Value (₹)",
                 lumpsum_cagr: "Lumpsum Rolling Returns (CAGR %)",
                 lumpsum_abs: "Lumpsum Rolling Absolute Value (₹)",
                 stddev: "Standard Deviation Rolling Annualized Monthly (Risk) (%)"
+            }
+        },
+        plot_chart_button : {
+            label: "Analyze"
+        },
+        chart_placeholder: {
+            empty_data: {
+                label: "No data to display"
             }
         }
     }

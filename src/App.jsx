@@ -3,7 +3,8 @@ import Header from "./components/Header";
 import GrowthDirectCheckbox from "./components/GrowthDirectCheckbox";
 import ChartTypeSelector from "./components/ChartTypeSelector";
 import DurationSelector from "./components/DurationSelector";
-import ChartPlaceholder, { generateChartData } from "./components/ChartPlaceholder";
+import ChartPlaceholder from "./components/ChartPlaceholder";
+import PlotGraphButton from "./components/PlotGraphButton";
 
 import PLACEHOLDERS from "./common/placeholders";
 import dataRepository from "./data/repository";
@@ -18,10 +19,11 @@ function App() {
 	const [selectedMutualFunds, setSelectedMutualFunds] = useState([]);
 	const [selectedIndexes, setSelectedIndexes] = useState([]);
 	const [showGrowthDirect, setShowGrowthDirect] = useState(false);
-	const [chartType, setChartType] = useState("");
+	const [chartType, setChartType] = useState(0);
 	const [duration, setDuration] = useState("1Y");
-	const [showGraph, setShowGraph] = useState(false);
+	const [showGraph, setShowGraph] = useState(true);
 	const [loader, setLoader] = useState(true);
+	const [chartData, setChartData] = useState([]);
 
 	async function showGrowthDirectFunds() {
 		const fundsList = await dataRepository.getAllDirectFundsList();
@@ -72,8 +74,6 @@ function App() {
 		}
 	}, [showGrowthDirect]);
 
-	const chartData = generateChartData();
-
 	return (
 		<div className="min-h-screen bg-gray-50 py-8 px-4 flex flex-col items-center">
 			{loader && (
@@ -109,14 +109,14 @@ function App() {
 					duration={duration}
 					setDuration={setDuration}
 				/>
-				<div className="flex justify-center">
-					<button
-						className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer"
-						onClick={() => setShowGraph(true)}
-					>
-						Plot Graph
-					</button>
-				</div>
+				<PlotGraphButton 
+					chartData={chartData}
+					setChartData={setChartData} 
+					chartType={chartType}
+					selectedMutualFunds={selectedMutualFunds}
+					selectedIndexes={selectedIndexes}
+					setLoader={setLoader}
+				/>
 				{showGraph && (
 					<ChartPlaceholder data={chartData} maxLines={5} />
 				)}

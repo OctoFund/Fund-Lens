@@ -120,6 +120,26 @@ class MF_API extends API {
         });
         return ret;
     }
+
+    getOneFundData = async (fundId = 0) => {
+        const ret = [];
+        if(fundId == 0) {
+            return ret;
+        }
+        if(isNaN(fundId)) {
+            return ret;
+        }
+        const res = await networkModule.request(
+            HTTPRequestTypes.GET,
+            this._constrcutURL("/mf/" + fundId)
+        );
+        if (res.code != 200) {
+            console.error(`Network Error from ${this.DOMAIN}. Response: ${res}`);
+            return ret;
+        }
+
+        return res.data.data;
+    }
 }
 
 const mf_api = new MF_API();
