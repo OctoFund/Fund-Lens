@@ -137,7 +137,8 @@ class MF_API extends API {
             console.error(`Network Error from ${this.DOMAIN}. Response: ${res}`);
             return ret;
         }
-        console.log(res.data);
+
+        return res.data.data;
     }
 }
 

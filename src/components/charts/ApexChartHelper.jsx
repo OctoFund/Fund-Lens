@@ -1,25 +1,38 @@
 import Chart from 'react-apexcharts';
 import CONSTANTS from '../../common/constants';
 
+function parseDMY(dateStr) {
+	const [day, month, year] = dateStr.split("-");
+	return new Date(`${year}-${month}-${day}`);
+}
+
 function transformApexFormat(data) {
-    const fundData = [
-		{
-			name: "Nippon Small Cap Fund",
-			data: [
-				[new Date("2020-01-01").getTime(), 45.3],
-				[new Date("2020-01-02").getTime(), 45.7],
-				[new Date("2020-01-03").getTime(), 85.7],
-			]
-		},
-		{
-			name: "Axis Growth Fund",
-			data: [
-				[new Date("2020-01-03").getTime(), 60.8],
-				[new Date("2020-01-04").getTime(), 61.0]
-			]
-		}
-	];
-    return fundData;
+	const allTimestampsSet = new Set();
+	Object.values(data).forEach(fundArr => {
+		fundArr.forEach(details => {
+			allTimestampsSet.add(parseDMY(details.date).getTime());
+		});
+	});
+	const allTimestamps = Array.from(allTimestampsSet).sort((a, b) => a - b);
+
+	const fundMaps = {};
+	Object.keys(data).forEach(key => {
+		const map = {};
+		data[key].forEach(details => {
+			map[parseDMY(details.date).getTime()] = Number.parseFloat(details.nav);
+		});
+		fundMaps[key] = map;
+	});
+
+	const fundFinalChartData = Object.keys(data).map(key => {
+		const fundData = allTimestamps.map(ts => [ts, fundMaps[key][ts] !== undefined ? fundMaps[key][ts] : null]);
+		return {
+			name: key,
+			data: fundData
+		};
+	});
+
+	return fundFinalChartData;
 }
 
 function ApexChartHelper({ data }) {
@@ -45,12 +58,6 @@ function ApexChartHelper({ data }) {
 				format: 'dd MMM yy',
 			},
 		},
-		tooltip: {
-			shared: true,
-			x: {
-				format: 'dd MMM yyyy',
-			},
-		},
 		stroke: {
 			width: 2,
 		},
@@ -61,6 +68,15 @@ function ApexChartHelper({ data }) {
 			show: true,
 			position: 'top',
 		},
+		yaxis: {
+			title: {
+				text: 'Value'
+			}
+		},
+		tooltip: {
+			shared: true,
+			intersect: false
+		}
 	};
 
 	return (

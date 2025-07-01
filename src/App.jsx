@@ -19,7 +19,7 @@ function App() {
 	const [selectedMutualFunds, setSelectedMutualFunds] = useState([]);
 	const [selectedIndexes, setSelectedIndexes] = useState([]);
 	const [showGrowthDirect, setShowGrowthDirect] = useState(false);
-	const [chartType, setChartType] = useState("");
+	const [chartType, setChartType] = useState(0);
 	const [duration, setDuration] = useState("1Y");
 	const [showGraph, setShowGraph] = useState(true);
 	const [loader, setLoader] = useState(true);
@@ -112,8 +112,10 @@ function App() {
 				<PlotGraphButton 
 					chartData={chartData}
 					setChartData={setChartData} 
+					chartType={chartType}
 					selectedMutualFunds={selectedMutualFunds}
 					selectedIndexes={selectedIndexes}
+					setLoader={setLoader}
 				/>
 				{showGraph && (
 					<ChartPlaceholder data={chartData} maxLines={5} />
