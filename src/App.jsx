@@ -3,13 +3,38 @@ import Header from "./components/Header";
 import GrowthDirectCheckbox from "./components/GrowthDirectCheckbox";
 import ChartTypeSelector from "./components/ChartTypeSelector";
 import DurationSelector from "./components/DurationSelector";
-import ChartPlaceholder, { generateChartData } from "./components/ChartPlaceholder";
+import ChartPlaceholder from "./components/ChartPlaceholder";
 
 import PLACEHOLDERS from "./common/placeholders";
 import dataRepository from "./data/repository";
 import SearchMutualFunds from "./components/SearchMutualFunds";
 import SearchIndexes from "./components/SearchIndexes";
 import Loader from "./components/loader";
+
+// Convert generateChartData output to ApexCharts format
+function convertToApexSeries(chartData) {
+	// chartData.labels: array of date strings (e.g., 'Jan 21')
+	// chartData.datasets: array of { label, data }
+	// We'll reconstruct the date for each index using the original start date
+	const startDate = new Date('2021-01-01');
+	return chartData.datasets.map(dataset => {
+		const data = dataset.data.map((value, idx) => {
+			// Calculate the date, skipping weekends
+			let date = new Date(startDate);
+			let added = 0, i = 0;
+			while (added < idx) {
+				date.setDate(date.getDate() + 1);
+				if (date.getDay() !== 0 && date.getDay() !== 6) {
+					added++;
+				}
+				i++;
+				if (i > 4000) break; // safety
+			}
+			return [date.getTime(), value];
+		});
+		return { name: dataset.label, data };
+	});
+}
 
 function App() {
 	document.title = PLACEHOLDERS.home.title;
@@ -72,8 +97,6 @@ function App() {
 		}
 	}, [showGrowthDirect]);
 
-	const chartData = generateChartData();
-
 	return (
 		<div className="min-h-screen bg-gray-50 py-8 px-4 flex flex-col items-center">
 			{loader && (
@@ -118,7 +141,7 @@ function App() {
 					</button>
 				</div>
 				{showGraph && (
-					<ChartPlaceholder data={chartData} maxLines={5} />
+					<ChartPlaceholder data={[]} maxLines={5} />
 				)}
 			</div>
 		</div>
