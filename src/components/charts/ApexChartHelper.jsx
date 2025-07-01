@@ -1,4 +1,5 @@
 import Chart from 'react-apexcharts';
+import CONSTANTS from '../../common/constants';
 
 function transformApexFormat(data) {
     const fundData = [
@@ -67,7 +68,7 @@ function ApexChartHelper({ data }) {
 			options={options}
 			series={data}
 			type="line"
-			height={400}
+			height={CONSTANTS.home.chart_placeholder.height}
 		/>
 	);
 }

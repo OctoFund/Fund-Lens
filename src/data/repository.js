@@ -46,6 +46,10 @@ class DataRepository {
     getAllIndexList = async () => {
         return await githubuser_api.getAllIndexList();
     }
+
+    getOneFundData = async (fundId) => {
+        return await mf_api.getOneFundData(fundId);
+    }
 }
 
 const dataRepository = new DataRepository();

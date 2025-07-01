@@ -4,37 +4,13 @@ import GrowthDirectCheckbox from "./components/GrowthDirectCheckbox";
 import ChartTypeSelector from "./components/ChartTypeSelector";
 import DurationSelector from "./components/DurationSelector";
 import ChartPlaceholder from "./components/ChartPlaceholder";
+import PlotGraphButton from "./components/PlotGraphButton";
 
 import PLACEHOLDERS from "./common/placeholders";
 import dataRepository from "./data/repository";
 import SearchMutualFunds from "./components/SearchMutualFunds";
 import SearchIndexes from "./components/SearchIndexes";
 import Loader from "./components/loader";
-
-// Convert generateChartData output to ApexCharts format
-function convertToApexSeries(chartData) {
-	// chartData.labels: array of date strings (e.g., 'Jan 21')
-	// chartData.datasets: array of { label, data }
-	// We'll reconstruct the date for each index using the original start date
-	const startDate = new Date('2021-01-01');
-	return chartData.datasets.map(dataset => {
-		const data = dataset.data.map((value, idx) => {
-			// Calculate the date, skipping weekends
-			let date = new Date(startDate);
-			let added = 0, i = 0;
-			while (added < idx) {
-				date.setDate(date.getDate() + 1);
-				if (date.getDay() !== 0 && date.getDay() !== 6) {
-					added++;
-				}
-				i++;
-				if (i > 4000) break; // safety
-			}
-			return [date.getTime(), value];
-		});
-		return { name: dataset.label, data };
-	});
-}
 
 function App() {
 	document.title = PLACEHOLDERS.home.title;
@@ -45,8 +21,9 @@ function App() {
 	const [showGrowthDirect, setShowGrowthDirect] = useState(false);
 	const [chartType, setChartType] = useState("");
 	const [duration, setDuration] = useState("1Y");
-	const [showGraph, setShowGraph] = useState(false);
+	const [showGraph, setShowGraph] = useState(true);
 	const [loader, setLoader] = useState(true);
+	const [chartData, setChartData] = useState([]);
 
 	async function showGrowthDirectFunds() {
 		const fundsList = await dataRepository.getAllDirectFundsList();
@@ -132,16 +109,14 @@ function App() {
 					duration={duration}
 					setDuration={setDuration}
 				/>
-				<div className="flex justify-center">
-					<button
-						className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer"
-						onClick={() => setShowGraph(true)}
-					>
-						Plot Graph
-					</button>
-				</div>
+				<PlotGraphButton 
+					chartData={chartData}
+					setChartData={setChartData} 
+					selectedMutualFunds={selectedMutualFunds}
+					selectedIndexes={selectedIndexes}
+				/>
 				{showGraph && (
-					<ChartPlaceholder data={[]} maxLines={5} />
+					<ChartPlaceholder data={chartData} maxLines={5} />
 				)}
 			</div>
 		</div>

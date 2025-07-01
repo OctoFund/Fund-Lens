@@ -30,6 +30,14 @@ const PLACEHOLDERS = {
                 lumpsum_abs: "Lumpsum Rolling Absolute Value (₹)",
                 stddev: "Standard Deviation Rolling Annualized Monthly (Risk) (%)"
             }
+        },
+        plot_chart_button : {
+            label: "Analyze"
+        },
+        chart_placeholder: {
+            empty_data: {
+                label: "No data to display"
+            }
         }
     }
     
