@@ -1,7 +1,6 @@
 import CONSTANTS from "../common/constants";
 import PLACEHOLDERS from "../common/placeholders";
-import ApexChartHelper, { transformApexFormat } from "./charts/ApexChartHelper";
-import ApacheEChartsHelper, {transformEchartsFormat } from "./charts/ApacheEChartHelper";
+import ApacheEChartsHelper from "./charts/ApacheEChartHelper";
 
 function ChartPlaceholder({ data, maxLines = CONSTANTS.home.chart_placeholder.max_lines }) {	
 	return (

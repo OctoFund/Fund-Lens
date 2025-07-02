@@ -70,6 +70,8 @@ function transformApexFormat(data) {
 
 function ApexChartHelper({ data }) {
 
+	const series = transformApexFormat(data);
+
 	const options = {
 		chart: {
 			type: 'line',
@@ -116,7 +118,7 @@ function ApexChartHelper({ data }) {
 	return (
 		<Chart
 			options={options}
-			series={data}
+			series={series}
 			type="line"
 			height={CONSTANTS.home.chart_placeholder.height}
 		/>
@@ -124,4 +126,3 @@ function ApexChartHelper({ data }) {
 }
 
 export default ApexChartHelper;
-export { transformApexFormat }

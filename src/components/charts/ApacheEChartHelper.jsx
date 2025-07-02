@@ -92,76 +92,84 @@ function transformEchartsFormatRaw(data) {
 
 function transformEchartsFormatForwardFill(data) {
     const allTimestampsSet = new Set();
-    Object.values(data["mf"]).forEach(fundArr => {
-        fundArr.forEach(details => {
-            allTimestampsSet.add(parseDMY(details.date).getTime());
-        });
-    });
-    Object.values(data["index"]).forEach(fundArr => {
-        fundArr.forEach(details => {
-            allTimestampsSet.add(parseDMY_MMM(details.Date).getTime());
-        });
-    });
-    const allTimestamps = Array.from(allTimestampsSet).sort((a, b) => a - b);
+	Object.values(data["mf"]).forEach(fundArr => {
+		fundArr.forEach(details => {
+			allTimestampsSet.add(parseDMY(details.date).getTime());
+		});
+	});
+	Object.values(data["index"]).forEach(fundArr => {
+		fundArr.forEach(details => {
+			allTimestampsSet.add(parseDMY_MMM(details.Date).getTime());
+		});
+	});
+	const allTimestamps = Array.from(allTimestampsSet).sort((a, b) => a - b);
 
-    const fundMaps = {};
-    Object.keys(data["mf"]).forEach(key => {
-        const map = {};
-        data["mf"][key].forEach(details => {
-            map[parseDMY(details.date).getTime()] = Number.parseFloat(details.nav);
-        });
-        fundMaps[key] = map;
-    });
+	const fundMaps = {};
+	Object.keys(data["mf"]).forEach(key => {
+		const map = {};
+		data["mf"][key].forEach(details => {
+			map[parseDMY(details.date).getTime()] = Number.parseFloat(details.nav);
+		});
+		fundMaps[key] = map;
+	});
 
-    Object.keys(data["index"]).forEach(key => {
-        const map = {};
-        data["index"][key].forEach(details => {
-            map[parseDMY_MMM(details.Date).getTime()] = Number.parseFloat(details.TotalReturnsIndex);
-        });
-        fundMaps[key] = map;
-    });
+	Object.keys(data["index"]).forEach(key => {
+		const map = {};
+		data["index"][key].forEach(details => {
+			map[parseDMY_MMM(details.Date).getTime()] = Number.parseFloat(details.TotalReturnsIndex);
+		});
+		fundMaps[key] = map;
+	});
 
-    const fundFinalChartDataMF = Object.keys(data["mf"]).map(key => {
-        let lastValue = null;
-        const fundData = allTimestamps.map(ts => {
-            if (fundMaps[key][ts] !== undefined) {
-                lastValue = fundMaps[key][ts];
-                return [ts, lastValue];
-            } else {
-                return [ts, lastValue];
-            }
-        });
-        return {
+	const fundFinalChartDataMF = [];
+
+    for (const key of Object.keys(data["mf"])) {
+        const seriesObj = {
             name: key,
             type: 'line',
             showSymbol: false,
             sampling: 'lttb',
             large: true,
-            data: fundData,
+            data: []
         };
-    });
 
-    const fundFinalChartDataIndex = Object.keys(data["index"]).map(key => {
-        let lastValue = null;
-        const fundData = allTimestamps.map(ts => {
-            if (fundMaps[key][ts] !== undefined) {
-                lastValue = fundMaps[key][ts];
-                return [ts, lastValue];
-            } else {
-                return [ts, lastValue];
+        var prev = 0;
+        for (const ts of allTimestamps) {
+            const value = fundMaps[key][ts] !== undefined ? fundMaps[key][ts] : prev;
+            if(fundMaps[key][ts] !== undefined) {
+                prev = fundMaps[key][ts];
             }
-        });
-        return {
+            seriesObj.data.push([ts, value]);
+        }
+
+        fundFinalChartDataMF.push(seriesObj);
+    }
+
+    var fundFinalChartDataIndex = [];
+
+    for (const key of Object.keys(data["index"])) {
+        const seriesObj = {
             name: key,
             type: 'line',
             showSymbol: false,
             sampling: 'lttb',
             large: true,
-            data: fundData,
+            data: []
         };
-    });
 
-    return [...fundFinalChartDataIndex, ...fundFinalChartDataMF];
+        var prev = 0;
+        for (const ts of allTimestamps) {
+            const value = fundMaps[key][ts] !== undefined ? fundMaps[key][ts] : prev;
+            if(fundMaps[key][ts] !== undefined) {
+                prev = fundMaps[key][ts];
+            }
+            seriesObj.data.push([ts, value]);
+        }
+
+        fundFinalChartDataIndex.push(seriesObj);
+    }
+
+	return [...fundFinalChartDataIndex, ...fundFinalChartDataMF];
 }
 
 function ApacheEChartsHelper({ data }) {
@@ -212,4 +220,3 @@ function ApacheEChartsHelper({ data }) {
 }
 
 export default ApacheEChartsHelper;
-export { transformEchartsFormat }
