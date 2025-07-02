@@ -4,16 +4,19 @@ import dataRepository from "../data/repository";
 
 const constructNavOrIndexData = async (selectedMutualFunds, selectedIndexes, setChartData, setLoader) => {
     setLoader(true);
-    var rawChartData = {};
+    var rawChartData = {
+        "mf": {},
+        "index":{}
+    };
     for (let i = 0; i < selectedMutualFunds.length; i++) {
         const fund = selectedMutualFunds[i];
         const data = await dataRepository.getOneFundData(fund.value);
-        rawChartData[fund.label] = data;
+        rawChartData["mf"][fund.label] = data;
     }
     for (let i = 0; i < selectedIndexes.length; i++) {
         const index = selectedIndexes[i];
         const data = await dataRepository.getOneIndexData(index.value);
-        console.log(data);
+        rawChartData["index"][index.value] = data;
     }
     setChartData(rawChartData);
     setLoader(false);

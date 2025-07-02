@@ -27,7 +27,8 @@ function App() {
 	const [lumpsumAmount, setLumpsumAmount] = useState(0);
 	const [showGraph, setShowGraph] = useState(true);
 	const [loader, setLoader] = useState(true);
-	const [chartData, setChartData] = useState([]);
+	const [chartData, setChartData] = useState({"mf": {},
+        "index":{}});
 
 	async function showGrowthDirectFunds() {
 		const fundsList = await dataRepository.getAllDirectFundsList();
