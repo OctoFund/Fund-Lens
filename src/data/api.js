@@ -33,6 +33,9 @@ class API {
     getOneFundData = async (fundId = 0) => {
         throw Error("NOT Implemented");
     }
+    getOneIndexData = async (index = "") => {
+        throw Error("Not Implemented");
+    }
 };
 
 export default API;

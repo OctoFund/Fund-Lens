@@ -12,8 +12,8 @@ const constructNavOrIndexData = async (selectedMutualFunds, selectedIndexes, set
     }
     for (let i = 0; i < selectedIndexes.length; i++) {
         const index = selectedIndexes[i];
-        // const data = await dataRepository.getOneFundData(fund.value);
-        // console.log(data);
+        const data = await dataRepository.getOneIndexData(index.value);
+        console.log(data);
     }
     setChartData(rawChartData);
     setLoader(false);

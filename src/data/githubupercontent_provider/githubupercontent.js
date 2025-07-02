@@ -43,6 +43,23 @@ class GITHUBUPERCONTENT_API extends API {
         });
         return ret;
     }
+    getOneIndexData = async (index = "") => {
+        var ret = [];
+        if(index.trim().length == 0) {
+            return ret;
+        }
+        console.log(this._constrcutURL("/asrajavel/mf-index-data/main/index data/" + index + ".json"));
+        const res = await networkModule.request(
+            HTTPRequestTypes.GET, 
+            this._constrcutURL("/asrajavel/mf-index-data/main/index data/" + index + ".json")
+        );
+        if(res.code != 200) {
+            console.error(`Network Error from ${this.DOMAIN}. Response: ${res}`);
+            return ret;
+        }
+        ret = JSON.parse(res.data['d']);
+        return ret;
+    }
 }
 
 const githubuser_api = new GITHUBUPERCONTENT_API();
