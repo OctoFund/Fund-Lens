@@ -11,6 +11,8 @@ import dataRepository from "./data/repository";
 import SearchMutualFunds from "./components/SearchMutualFunds";
 import SearchIndexes from "./components/SearchIndexes";
 import Loader from "./components/loader";
+import SIPAmountProvider from "./components/SIPAmountProvider";
+import LumpsumAmountProvider from "./components/LumpsumAmountProvider";
 
 function App() {
 	document.title = PLACEHOLDERS.home.title;
@@ -20,10 +22,13 @@ function App() {
 	const [selectedIndexes, setSelectedIndexes] = useState([]);
 	const [showGrowthDirect, setShowGrowthDirect] = useState(false);
 	const [chartType, setChartType] = useState(0);
-	const [duration, setDuration] = useState("1Y");
+	const [duration, setDuration] = useState();
+	const [sipAmount, setSipAmount] = useState(0);
+	const [lumpsumAmount, setLumpsumAmount] = useState(0);
 	const [showGraph, setShowGraph] = useState(true);
 	const [loader, setLoader] = useState(true);
-	const [chartData, setChartData] = useState([]);
+	const [chartData, setChartData] = useState({"mf": {},
+        "index":{}});
 
 	async function showGrowthDirectFunds() {
 		const fundsList = await dataRepository.getAllDirectFundsList();
@@ -105,10 +110,21 @@ function App() {
 					chartType={chartType}
 					setChartType={setChartType}
 				/>
+				{(chartType == 2 || chartType == 4 || chartType == 6) && 
 				<DurationSelector
 					duration={duration}
 					setDuration={setDuration}
-				/>
+				/>}
+				{(chartType == 3) && 
+				<SIPAmountProvider
+					sipAmount={sipAmount}
+					setSipAmount={setSipAmount}
+				/>}
+				{(chartType == 5) && 
+				<LumpsumAmountProvider
+					sipAmount={sipAmount}
+					setSipAmount={setSipAmount}
+				/>}
 				<PlotGraphButton 
 					chartData={chartData}
 					setChartData={setChartData} 

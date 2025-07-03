@@ -32,6 +32,14 @@ const PLACEHOLDERS = {
                 stddev: "Standard Deviation Rolling Annualized Monthly (Risk) (%)"
             }
         },
+        sip_amount_provider: {
+            label: "Monthly SIP Amount (₹):",
+            placeholder: "Enter monthly SIP amount (₹)"
+        },
+        lumpsum_amount_provider: {
+            label: "Lumpsum investment Amount (₹):",
+            placeholder: "Enter lumpsum investment Amount (₹)"
+        },
         plot_chart_button : {
             label: "Analyze"
         },

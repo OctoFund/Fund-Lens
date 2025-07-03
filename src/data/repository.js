@@ -50,6 +50,10 @@ class DataRepository {
     getOneFundData = async (fundId) => {
         return await mf_api.getOneFundData(fundId);
     }
+
+    getOneIndexData = async (index) => {
+        return await githubuser_api.getOneIndexData(index);
+    }
 }
 
 const dataRepository = new DataRepository();
