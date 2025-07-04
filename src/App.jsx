@@ -21,7 +21,7 @@ function App() {
 	const [selectedMutualFunds, setSelectedMutualFunds] = useState([]);
 	const [selectedIndexes, setSelectedIndexes] = useState([]);
 	const [showGrowthDirect, setShowGrowthDirect] = useState(false);
-	const [chartType, setChartType] = useState(0);
+	const [chartType, setChartType] = useState(1);
 	const [duration, setDuration] = useState();
 	const [sipAmount, setSipAmount] = useState(0);
 	const [lumpsumAmount, setLumpsumAmount] = useState(0);

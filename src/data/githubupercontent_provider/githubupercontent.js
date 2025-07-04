@@ -48,7 +48,6 @@ class GITHUBUPERCONTENT_API extends API {
         if(index.trim().length == 0) {
             return ret;
         }
-        console.log(this._constrcutURL("/asrajavel/mf-index-data/main/index data/" + index + ".json"));
         const res = await networkModule.request(
             HTTPRequestTypes.GET, 
             this._constrcutURL("/asrajavel/mf-index-data/main/index data/" + index + ".json")

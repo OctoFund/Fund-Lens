@@ -1,6 +1,7 @@
 import CONSTANTS from "../common/constants";
 import PLACEHOLDERS from "../common/placeholders";
 import ApacheEChartsHelper from "./charts/ApacheEChartHelper";
+import PlotlyChartsHelper from "./charts/PlotlyChartHelper";
 
 function ChartPlaceholder({ data, maxLines = CONSTANTS.home.chart_placeholder.max_lines }) {	
 	return (
@@ -9,7 +10,7 @@ function ChartPlaceholder({ data, maxLines = CONSTANTS.home.chart_placeholder.ma
 				<span className="text-gray-400">
 					{PLACEHOLDERS.home.chart_placeholder.empty_data.label}
 				</span>
-			</div>): (<ApacheEChartsHelper 
+			</div>): (<PlotlyChartsHelper 
 				data={data}
 			/>)}
 		</div>
