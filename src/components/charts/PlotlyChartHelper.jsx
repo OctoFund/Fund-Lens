@@ -227,3 +227,4 @@ function PlotlyChartsHelper({ data }) {
 }
 
 export default PlotlyChartsHelper;
+export { transformPlotlyJsDataForwardFill }

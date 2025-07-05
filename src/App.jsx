@@ -134,7 +134,7 @@ function App() {
 					setLoader={setLoader}
 				/>
 				{showGraph && (
-					<ChartPlaceholder data={chartData} maxLines={5} />
+					<ChartPlaceholder data={chartData} chartType={chartType} maxLines={5} />
 				)}
 			</div>
 		</div>
