@@ -4,8 +4,8 @@ import ApacheEChartsHelper from "./charts/ApacheEChartHelper";
 import PlotlyChartsHelper, { transformPlotlyJsDataForwardFill } from "./charts/PlotlyChartHelper";
 
 function ChartPlaceholder({ data, chartType, maxLines = CONSTANTS.home.chart_placeholder.max_lines }) {	
-	var chartData = [];
-	if(chartType == 1) {
+	var chartData = {};
+	if(chartType == 1) {		
 		chartData = transformPlotlyJsDataForwardFill(data);
 	}
 	else if(chartType == 2) {

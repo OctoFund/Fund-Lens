@@ -100,6 +100,7 @@ function transformPlotlyChartsFormatForwardFill(data) {
 
 function transformPlotlyJsDataForwardFill(data) {
     const allTimestampsSet = new Set();
+    
     Object.values(data["mf"]).forEach(fundArr => {
         fundArr.forEach(details => {
             allTimestampsSet.add(parseDMY(details.date).getTime());
@@ -180,7 +181,6 @@ function transformPlotlyJsDataForwardFill(data) {
 
 
 function PlotlyChartsHelper({ data }) {
-    const series = transformPlotlyJsDataForwardFill(data);
     /*
         [
                 {
@@ -211,7 +211,7 @@ function PlotlyChartsHelper({ data }) {
     */
     return (
         <Plot
-            data={series}
+            data={data}
             layout={{
                 // width: 1050,
                 // height: 400,
